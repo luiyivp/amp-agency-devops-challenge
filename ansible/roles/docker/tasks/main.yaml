@@ -1,0 +1,14 @@
+---
+- name: Install Docker and Docker Compose
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker.io
+    - docker-compose
+
+- name: Ensure Docker service is running
+  service:
+    name: docker
+    state: started
+    enabled: yes

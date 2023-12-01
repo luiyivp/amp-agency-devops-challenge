@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    deploy:
+      mode: replicated
+      replicas: 2
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    command: >
+      sh -c "python3 ./create_db.py &&
+             gunicorn -w 2 -b :5000 app:app"
+
+  db:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database

@@ -1,0 +1,10 @@
+---
+- name: Build and run Docker containers
+  command: docker-compose up -d
+  args:
+    chdir: /vagrant/app
+
+- name: Add firewall rule
+  ufw:
+    rule: allow
+    port: 5000
